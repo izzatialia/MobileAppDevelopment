@@ -62,7 +62,7 @@
         android:id="@+id/weightTextbox"
         android:layout_width="181dp"
         android:layout_height="49dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:hint="Your weight"
@@ -74,9 +74,9 @@
 
     <Spinner
         android:id="@+id/weightSelection"
-        android:layout_width="166dp"
+        android:layout_width="140dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="@id/weightTextbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/weightTextbox"
@@ -102,7 +102,7 @@
         android:id="@+id/heightTextbox"
         android:layout_width="181dp"
         android:layout_height="49dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:hint="Your height"
@@ -114,9 +114,9 @@
 
     <Spinner
         android:id="@+id/heightSelection"
-        android:layout_width="166dp"
+        android:layout_width="140dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="@id/heightTextbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/heightTextbox"
@@ -127,7 +127,7 @@
         android:id="@+id/bmiDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:text="0"
         android:textAlignment="center"
         android:textSize="48sp"
@@ -152,7 +152,7 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="132dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="140dp"
         android:text="Save"
@@ -167,10 +167,10 @@
     <Button
         android:id="@+id/button1"
         android:layout_width="132dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="20dp"
         android:text="Calculate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button2"
@@ -178,6 +178,19 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bmiCategory"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.098" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="50dp"
+        android:text="View History"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
