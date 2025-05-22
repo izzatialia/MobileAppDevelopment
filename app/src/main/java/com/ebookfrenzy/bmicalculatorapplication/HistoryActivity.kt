@@ -6,7 +6,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.ebookfrenzy.bmicalculatorapplication.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HistoryActivity : AppCompatActivity() {
 
@@ -23,8 +24,12 @@ class HistoryActivity : AppCompatActivity() {
         backButton = findViewById(R.id.backButton)
 
         val sharedPref = getSharedPreferences("BMIRecords", Context.MODE_PRIVATE)
-        val history = sharedPref.getString("history_list", "No history available.")
-        historyView.text = history
+
+        // Load full history
+        val history = sharedPref.getString("history_list", "")
+
+        // Show history or message if empty
+        historyView.text = if (history.isNullOrEmpty()) "No history yet." else history
 
         clearButton.setOnClickListener {
             with(sharedPref.edit()) {
@@ -36,9 +41,11 @@ class HistoryActivity : AppCompatActivity() {
         }
 
         backButton.setOnClickListener {
-            finish() // Finish this activity and go back
+            finish()
         }
     }
+
 }
+
 
 

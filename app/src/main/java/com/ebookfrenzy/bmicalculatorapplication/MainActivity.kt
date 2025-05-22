@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         heightUnit.adapter = adapter2
 
         // Calculate Button
-        calculateButton.setOnClickListener{
+        calculateButton.setOnClickListener {
             calculateBMI()
         }
 
@@ -74,8 +74,9 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     //Button click function
-    fun calculateBMI(){
+    fun calculateBMI() {
         val weightInput = inputWeight.text.toString()
         val heightInput = inputHeight.text.toString()
         val unitOfWeight = weightUnit.selectedItem.toString()
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         inputHeight.text.clear()
     }
 
-    fun getBMICategory(bmi:Double):String{
+    fun getBMICategory(bmi: Double): String {
         return when {
             bmi < 18.5 -> "Underweight"
             bmi < 24.9 -> "Normal weight"
@@ -112,16 +113,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun saveRecord(){
+    fun saveRecord() {
         val bmiValue = bmiDisplay.text.toString()
         val category = categoryDisplay.text.toString()
         val sharedPref = getSharedPreferences("BMIRecords", Context.MODE_PRIVATE)
+
+        // Retrieve current history
+        val currentHistory = sharedPref.getString("history_list", "")
+
+        // Append new entry
+        val newEntry = "BMI: $bmiValue - Category: $category\n"
+        val updatedHistory = currentHistory + newEntry
+
+        // Save updated history
         with(sharedPref.edit()) {
-            putString("last_bmi", bmiValue)
-            putString("last_category", category)
+            putString("history_list", updatedHistory)
             apply()
         }
+
         Toast.makeText(this, "BMI record saved!", Toast.LENGTH_SHORT).show()
     }
-
 }
