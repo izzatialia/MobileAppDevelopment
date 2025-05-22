@@ -6,11 +6,13 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.ebookfrenzy.bmicalculatorapplication.R
 
 class HistoryActivity : AppCompatActivity() {
 
     private lateinit var historyView: TextView
     private lateinit var clearButton: Button
+    private lateinit var backButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +20,7 @@ class HistoryActivity : AppCompatActivity() {
 
         historyView = findViewById(R.id.historyTextView)
         clearButton = findViewById(R.id.clearButton)
+        backButton = findViewById(R.id.backButton)
 
         val sharedPref = getSharedPreferences("BMIRecords", Context.MODE_PRIVATE)
         val history = sharedPref.getString("history_list", "No history available.")
@@ -31,5 +34,11 @@ class HistoryActivity : AppCompatActivity() {
             historyView.text = "History cleared."
             Toast.makeText(this, "History has been cleared.", Toast.LENGTH_SHORT).show()
         }
+
+        backButton.setOnClickListener {
+            finish() // Finish this activity and go back
+        }
     }
 }
+
+
