@@ -1,6 +1,7 @@
 package com.ebookfrenzy.bmicalculatorapplication
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var categoryDisplay: TextView
     private lateinit var calculateButton: Button
     private lateinit var saveButton: Button
+    private lateinit var viewHistoryButton: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         categoryDisplay = findViewById(R.id.bmiCategory)
         calculateButton = findViewById(R.id.button1)
         saveButton = findViewById(R.id.button2)
+        viewHistoryButton = findViewById(R.id.button3)
 
         val units1 = arrayOf("kg", "lbs")
         val units2 = arrayOf("m", "cm")
@@ -64,6 +67,12 @@ class MainActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             saveRecord()
         }
+
+        viewHistoryButton.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
+        }
+
     }
     //Button click function
     fun calculateBMI(){
