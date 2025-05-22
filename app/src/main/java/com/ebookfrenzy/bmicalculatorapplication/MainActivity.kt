@@ -1,11 +1,14 @@
 package com.ebookfrenzy.bmicalculatorapplication
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -45,7 +48,71 @@ class MainActivity : AppCompatActivity() {
         val units1 = arrayOf("kg", "lbs")
         val units2 = arrayOf("m", "cm")
 
+        val adapter1 = ArrayAdapter(this, android.R.layout.simple_spinner_item, units1)
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter2 = ArrayAdapter(this, android.R.layout.simple_spinner_item, units2)
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
+        weightUnit.adapter = adapter1
+        heightUnit.adapter = adapter2
 
+        // Calculate Button
+        calculateButton.setOnClickListener{
+            calculateBMI()
+        }
+
+        saveButton.setOnClickListener {
+            saveRecord()
+        }
     }
+    //Button click function
+    fun calculateBMI(){
+        val weightInput = inputWeight.text.toString()
+        val heightInput = inputHeight.text.toString()
+        val unitOfWeight = weightUnit.selectedItem.toString()
+        val unitOfHeight = heightUnit.selectedItem.toString()
+
+        if (weightInput.isEmpty() || heightInput.isEmpty()) {
+            Toast.makeText(this, "Please enter a number", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        var weightValue = weightInput.toDouble()
+        var heightValue = heightInput.toDouble()
+
+        //Convert to standard unit: kg and m
+        if (unitOfWeight == "lb") weightValue /= 2.205  // convert pounds to kg
+        if (unitOfHeight == "cm") heightValue /= 100    // convert cm to m
+
+        val bmi = weightValue / (heightValue * heightValue)
+        val bmiFormatted = String.format("%.2f", bmi)
+        bmiDisplay.text = bmiFormatted
+        categoryDisplay.text = getBMICategory(bmi)
+
+        // Optional: Clear input
+        inputWeight.text.clear()
+        inputHeight.text.clear()
+    }
+
+    fun getBMICategory(bmi:Double):String{
+        return when {
+            bmi < 18.5 -> "Underweight"
+            bmi < 24.9 -> "Normal weight"
+            bmi < 29.9 -> "Overweight"
+            else -> "Obesity"
+        }
+    }
+
+    fun saveRecord(){
+        val bmiValue = bmiDisplay.text.toString()
+        val category = categoryDisplay.text.toString()
+        val sharedPref = getSharedPreferences("BMIRecords", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("last_bmi", bmiValue)
+            putString("last_category", category)
+            apply()
+        }
+        Toast.makeText(this, "BMI record saved!", Toast.LENGTH_SHORT).show()
+    }
+
 }
